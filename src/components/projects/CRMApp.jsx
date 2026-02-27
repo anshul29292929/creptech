@@ -18,6 +18,7 @@ const INITIAL_PIPELINE = {
 
 export default function CRMApp() {
   const [view, setView] = useState('home');
+  const [activeTab, setActiveTab] = useState('Pipeline');
   const [pipeline, setPipeline] = useState(INITIAL_PIPELINE);
   const [showAddModal, setShowAddModal] = useState(false);
   const [newLead, setNewLead] = useState({ company: '', contact: '', value: '' });
@@ -185,69 +186,101 @@ export default function CRMApp() {
          </div>
       </div>
 
-      {/* Kanban Board */}
-      <div className="flex-1 p-6 flex gap-6 overflow-x-auto min-w-full">
-         {Object.entries(pipeline).map(([column, leads]) => (
-            <div key={column} className="flex-1 min-w-[300px] flex flex-col">
-               <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-2">
-                     <h5 className="text-[10px] font-black uppercase tracking-[0.2em] text-text-dimmed">{column}</h5>
-                     <span className="px-1.5 py-0.5 rounded bg-white/5 text-[10px] font-bold text-white/50">{leads.length}</span>
-                  </div>
-                  <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
-               </div>
-               
-               <div className="flex-1 space-y-4">
-                  {leads.map(lead => (
-                    <motion.div 
-                      layout
-                      key={lead.id}
-                      onClick={() => moveLead(lead.id, column)}
-                      className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/30 transition-all cursor-pointer group shadow-xl"
-                    >
-                       <div className="flex justify-between items-start mb-4">
-                          <div>
-                             <h6 className="font-bold text-sm mb-0.5">{lead.company}</h6>
-                             <p className="text-[10px] text-text-dimmed">{lead.contact}</p>
-                          </div>
-                          <div className="text-xs font-black text-red-500">{lead.value}</div>
-                       </div>
-                       
-                       <div className="flex items-center justify-between pt-4 border-t border-white/5">
-                          <div className="flex items-center gap-3 opacity-40 group-hover:opacity-100 transition-opacity">
-                             <MessageSquare size={12} className="hover:text-red-500 cursor-pointer" />
-                             <Phone size={12} className="hover:text-red-500 cursor-pointer" />
-                             <Mail size={12} className="hover:text-red-500 cursor-pointer" />
-                          </div>
-                          <div className="text-[8px] font-black uppercase text-red-500/50 opacity-0 group-hover:opacity-100 transition-opacity">
-                             Shift Stage ➔
-                          </div>
-                       </div>
-                    </motion.div>
-                  ))}
-                  <div onClick={() => setShowAddModal(true)} className="p-4 border-2 border-dashed border-white/5 rounded-2xl flex items-center justify-center text-white/10 hover:text-white/20 hover:border-white/10 transition-all cursor-pointer">
-                     <Plus size={20} />
-                  </div>
-               </div>
-            </div>
-         ))}
-      </div>
-
-      {/* Dashboard Footer Stats */}
-      <div className="p-6 bg-black/40 border-t border-white/5 flex items-center gap-12 overflow-x-auto">
-         {[
-           { label: "Rev Forecast", value: "$142,500", icon: <TrendingUp size={14} className="text-emerald-500" /> },
-           { label: "Active Deals", value: "24 Items", icon: <Target size={14} className="text-red-500" /> },
-           { label: "Conversion Rate", value: "18.4%", icon: <Activity size={14} className="text-primary-blue" /> }
-         ].map(stat => (
-           <div key={stat.label} className="flex items-center gap-3 shrink-0">
-              <div className="p-2 rounded-lg bg-white/5">{stat.icon}</div>
-              <div>
-                 <div className="text-[8px] uppercase font-black tracking-widest text-text-dimmed">{stat.label}</div>
-                 <div className="text-xs font-black">{stat.value}</div>
+      <div className="flex flex-1 overflow-hidden">
+         {/* Navigation Sidebar */}
+         <div className="w-16 md:w-48 border-r border-white/5 flex flex-col py-6 bg-black/20 shrink-0">
+            {['Pipeline', 'Contacts', 'Campaigns', 'Reports'].map(tab => (
+              <div 
+                 key={tab}
+                 onClick={() => setActiveTab(tab)}
+                 className={cn(
+                   "px-4 md:px-6 py-4 cursor-pointer transition-all flex items-center gap-3",
+                   activeTab === tab ? "text-red-500 border-r-2 border-red-500 bg-red-500/5" : "text-text-dimmed hover:text-white"
+                 )}
+              >
+                 {tab === 'Pipeline' ? <Target size={16} /> : tab === 'Contacts' ? <Mail size={16} /> : tab === 'Campaigns' ? <TrendingUp size={16} /> : <Filter size={16} />}
+                 <span className="hidden md:block text-[10px] font-black uppercase tracking-widest">{tab}</span>
               </div>
-           </div>
-         ))}
+            ))}
+         </div>
+
+         {/* Main Content Area */}
+         <div className="flex-1 flex flex-col overflow-hidden">
+            {activeTab === 'Pipeline' ? (
+              <>
+                {/* Kanban Board */}
+                <div className="flex-1 p-6 flex gap-6 overflow-x-auto min-w-full">
+                   {Object.entries(pipeline).map(([column, leads]) => (
+                      <div key={column} className="flex-1 min-w-[300px] flex flex-col">
+                         <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center gap-2">
+                               <h5 className="text-[10px] font-black uppercase tracking-[0.2em] text-text-dimmed">{column}</h5>
+                               <span className="px-1.5 py-0.5 rounded bg-white/5 text-[10px] font-bold text-white/50">{leads.length}</span>
+                            </div>
+                            <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
+                         </div>
+                         
+                         <div className="flex-1 space-y-4">
+                            {leads.map(lead => (
+                              <motion.div 
+                                layout
+                                key={lead.id}
+                                onClick={() => moveLead(lead.id, column)}
+                                className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-red-500/30 transition-all cursor-pointer group shadow-xl"
+                              >
+                                 <div className="flex justify-between items-start mb-4">
+                                    <div>
+                                       <h6 className="font-bold text-sm mb-0.5">{lead.company}</h6>
+                                       <p className="text-[10px] text-text-dimmed">{lead.contact}</p>
+                                    </div>
+                                    <div className="text-xs font-black text-red-500">{lead.value}</div>
+                                 </div>
+                                 
+                                 <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                                    <div className="flex items-center gap-3 opacity-40 group-hover:opacity-100 transition-opacity">
+                                       <MessageSquare size={12} className="hover:text-red-500 cursor-pointer" />
+                                       <Phone size={12} className="hover:text-red-500 cursor-pointer" />
+                                       <Mail size={12} className="hover:text-red-500 cursor-pointer" />
+                                    </div>
+                                    <div className="text-[8px] font-black uppercase text-red-500/50 opacity-0 group-hover:opacity-100 transition-opacity">
+                                       Shift Stage ➔
+                                    </div>
+                                 </div>
+                              </motion.div>
+                            ))}
+                            <div onClick={() => setShowAddModal(true)} className="p-4 border-2 border-dashed border-white/5 rounded-2xl flex items-center justify-center text-white/10 hover:text-white/20 hover:border-white/10 transition-all cursor-pointer">
+                               <Plus size={20} />
+                            </div>
+                         </div>
+                      </div>
+                   ))}
+                </div>
+
+                {/* Dashboard Footer Stats */}
+                <div className="p-6 bg-black/40 border-t border-white/5 flex items-center gap-12 overflow-x-auto shrink-0">
+                   {[
+                     { label: "Rev Forecast", value: "$142,500", icon: <TrendingUp size={14} className="text-emerald-500" /> },
+                     { label: "Active Deals", value: "24 Items", icon: <Target size={14} className="text-red-500" /> },
+                     { label: "Conversion Rate", value: "18.4%", icon: <Activity className="text-primary-blue w-3.5 h-3.5" /> }
+                   ].map(stat => (
+                     <div key={stat.label} className="flex items-center gap-3 shrink-0">
+                        <div className="p-2 rounded-lg bg-white/5">{stat.icon}</div>
+                        <div>
+                           <div className="text-[8px] uppercase font-black tracking-widest text-text-dimmed">{stat.label}</div>
+                           <div className="text-xs font-black">{stat.value}</div>
+                        </div>
+                     </div>
+                   ))}
+                </div>
+              </>
+            ) : (
+              <div className="flex-1 flex flex-col items-center justify-center opacity-40">
+                 <Filter size={48} className="text-red-500 mb-6" />
+                 <h4 className="text-xl font-black uppercase tracking-widest mb-2">Module Loading</h4>
+                 <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-text-dimmed">Retrieving secure data...</p>
+              </div>
+            )}
+         </div>
       </div>
     </div>
   );

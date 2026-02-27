@@ -204,68 +204,78 @@ export default function PatientApp() {
 
          {/* Content Area */}
          <div className="flex-1 p-8 flex flex-col overflow-hidden">
-            <div className="flex justify-between items-end mb-10">
-               <div>
-                  <h3 className="text-3xl font-black uppercase tracking-tighter mb-2">Appointments</h3>
-                  <p className="text-xs text-text-dimmed uppercase font-bold tracking-[0.2em]">Wednesday, Oct 24</p>
-               </div>
-               <div className="flex gap-4">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/20" size={14} />
-                    <input className="bg-white/5 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-xs focus:border-emerald-500 outline-none w-48 transition-all" placeholder="Patient search..." />
-                  </div>
-               </div>
-            </div>
+            {activeTab === 'appointments' ? (
+              <>
+                <div className="flex justify-between items-end mb-10">
+                   <div>
+                      <h3 className="text-3xl font-black uppercase tracking-tighter mb-2">Appointments</h3>
+                      <p className="text-xs text-text-dimmed uppercase font-bold tracking-[0.2em]">Wednesday, Oct 24</p>
+                   </div>
+                   <div className="flex gap-4">
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/20" size={14} />
+                        <input className="bg-white/5 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-xs focus:border-emerald-500 outline-none w-48 transition-all" placeholder="Patient search..." />
+                      </div>
+                   </div>
+                </div>
 
-            {/* Appointment Cards */}
-            <div className="flex-1 overflow-y-auto space-y-4 pr-2">
-               {appointments.map(apt => (
-                 <motion.div 
-                   layout
-                   key={apt.id}
-                   whileHover={{ x: 5 }}
-                   className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-all flex items-center justify-between shadow-xl"
-                 >
-                    <div className="flex items-center gap-6">
-                       <div className="w-12 h-12 rounded-2xl bg-surface-dark border border-white/5 flex items-center justify-center font-black text-emerald-500">
-                          {apt.time.split(':')[0]}
-                       </div>
-                       <div>
-                          <h4 className="font-bold text-base mb-1">{apt.patient}</h4>
-                          <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-text-dimmed">
-                             <span className="flex items-center gap-1"><Clock size={10} /> {apt.time}</span>
-                             <span className="flex items-center gap-1 text-emerald-500/80 underline underline-offset-4 pointer-events-none">{apt.type}</span>
-                          </div>
-                       </div>
-                    </div>
+                {/* Appointment Cards */}
+                <div className="flex-1 overflow-y-auto space-y-4 pr-2">
+                   {appointments.map(apt => (
+                     <motion.div 
+                       layout
+                       key={apt.id}
+                       whileHover={{ x: 5 }}
+                       className="p-5 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-emerald-500/30 transition-all flex items-center justify-between shadow-xl"
+                     >
+                        <div className="flex items-center gap-6">
+                           <div className="w-12 h-12 rounded-2xl bg-surface-dark border border-white/5 flex items-center justify-center font-black text-emerald-500">
+                              {apt.time.split(':')[0]}
+                           </div>
+                           <div>
+                              <h4 className="font-bold text-base mb-1">{apt.patient}</h4>
+                              <div className="flex items-center gap-4 text-[10px] font-black uppercase tracking-widest text-text-dimmed">
+                                 <span className="flex items-center gap-1"><Clock size={10} /> {apt.time}</span>
+                                 <span className="flex items-center gap-1 text-emerald-500/80 underline underline-offset-4 pointer-events-none">{apt.type}</span>
+                              </div>
+                           </div>
+                        </div>
 
-                    <div className="flex items-center gap-12">
-                       <div className="hidden lg:block text-right">
-                          <div className="text-[10px] font-black uppercase tracking-widest text-text-dimmed mb-1">Details</div>
-                          <div className="text-xs font-bold text-white/50">{apt.gender} / {apt.age}y</div>
-                       </div>
-                       <div className={cn(
-                          "px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest min-w-[100px] text-center",
-                          apt.status === 'Arrived' ? "bg-emerald-500/10 text-emerald-500" :
-                          apt.status === 'Delayed' ? "bg-red-500/10 text-red-500" :
-                          apt.status === 'Confirmed' ? "bg-primary-blue/10 text-primary-blue" :
-                          "bg-white/5 text-white/40"
-                       )}>
-                          {apt.status}
-                       </div>
-                       <button className="p-2 hover:bg-white/5 rounded-lg transition-all">
-                          <MoreHorizontal size={18} className="text-text-dimmed" />
-                       </button>
-                    </div>
-                 </motion.div>
-               ))}
-               <div 
-                  onClick={() => setShowAddModal(true)}
-                  className="h-20 flex items-center justify-center border-2 border-dashed border-white/5 rounded-2xl text-text-dimmed/40 hover:text-emerald-500/50 hover:border-emerald-500/20 cursor-pointer transition-all"
-               >
-                  + Add Emergency Appointment
-               </div>
-            </div>
+                        <div className="flex items-center gap-12">
+                           <div className="hidden lg:block text-right">
+                              <div className="text-[10px] font-black uppercase tracking-widest text-text-dimmed mb-1">Details</div>
+                              <div className="text-xs font-bold text-white/50">{apt.gender} / {apt.age}y</div>
+                           </div>
+                           <div className={cn(
+                              "px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest min-w-[100px] text-center",
+                              apt.status === 'Arrived' ? "bg-emerald-500/10 text-emerald-500" :
+                              apt.status === 'Delayed' ? "bg-red-500/10 text-red-500" :
+                              apt.status === 'Confirmed' ? "bg-primary-blue/10 text-primary-blue" :
+                              "bg-white/5 text-white/40"
+                           )}>
+                              {apt.status}
+                           </div>
+                           <button className="p-2 hover:bg-white/5 rounded-lg transition-all">
+                              <MoreHorizontal size={18} className="text-text-dimmed" />
+                           </button>
+                        </div>
+                     </motion.div>
+                   ))}
+                   <div 
+                      onClick={() => setShowAddModal(true)}
+                      className="h-20 flex items-center justify-center border-2 border-dashed border-white/5 rounded-2xl text-text-dimmed/40 hover:text-emerald-500/50 hover:border-emerald-500/20 cursor-pointer transition-all"
+                   >
+                      + Add Emergency Appointment
+                   </div>
+                </div>
+              </>
+            ) : (
+              <div className="flex-1 flex flex-col items-center justify-center text-center opacity-50">
+                 <Activity size={48} className="text-emerald-500 mb-6 opacity-50" />
+                 <h4 className="text-xl font-black uppercase tracking-widest mb-2">Module Secured</h4>
+                 <p className="text-[10px] uppercase font-bold tracking-[0.2em] text-text-dimmed">Authentication Required for Area Access</p>
+              </div>
+            )}
          </div>
       </div>
     </div>

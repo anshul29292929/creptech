@@ -181,10 +181,10 @@ export default function HRMApp() {
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col overflow-hidden">
-           <header className="p-8 flex items-center justify-between">
+           <header className="p-8 flex items-center justify-between shrink-0">
               <div>
                  <h3 className="text-2xl font-black mb-1 uppercase tracking-tighter">{activeTab}</h3>
-                 <p className="text-xs text-text-dimmed uppercase font-bold tracking-widest">{activeTab === 'Employees' ? `Managing ${employees.length} Total Staff` : 'System Nominal'}</p>
+                 <p className="text-xs text-text-dimmed uppercase font-bold tracking-widest">{activeTab === 'Employees' ? `Managing ${employees.length} Total Staff` : activeTab === 'Payroll' ? 'Monthly Processing Cycle' : 'System Nominal'}</p>
               </div>
               {activeTab === 'Employees' && (
                 <button onClick={() => setShowHireModal(true)} className="bg-purple-500 hover:bg-purple-600 px-6 py-3 rounded-xl text-xs font-black uppercase tracking-widest flex items-center gap-2 transition-all">
@@ -193,82 +193,138 @@ export default function HRMApp() {
               )}
            </header>
 
-           {activeTab === 'Employees' ? (
-             <>
-               {/* Stats Bar */}
-               <div className="px-8 grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 shrink-0">
-                  {[
-                    { label: "Active Now", value: employees.filter(e => e.status === 'Active').length.toString(), trend: "+12%" },
-                    { label: "On Leave", value: employees.filter(e => e.status === 'On Leave').length.toString(), trend: "0%" },
-                    { label: "Payroll Status", value: "Verified", trend: "Nominal" }
-                  ].map(stat => (
-                    <div key={stat.label} className="p-6 rounded-2xl bg-white/[0.02] border border-white/5">
-                       <div className="text-[10px] uppercase font-black tracking-widest text-text-dimmed mb-2">{stat.label}</div>
-                       <div className="flex items-end justify-between">
-                          <div className="text-2xl font-black">{stat.value}</div>
-                          <div className="text-[10px] font-black text-emerald-500">{stat.trend}</div>
-                       </div>
-                    </div>
-                  ))}
-               </div>
+           <div className="flex-1 overflow-y-auto px-8 pb-8">
+               {activeTab === 'Employees' && (
+                 <>
+                   {/* Stats Bar */}
+                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 shrink-0">
+                      {[
+                        { label: "Active Now", value: employees.filter(e => e.status === 'Active').length.toString(), trend: "+12%" },
+                        { label: "On Leave", value: employees.filter(e => e.status === 'On Leave').length.toString(), trend: "0%" },
+                        { label: "Payroll Status", value: "Verified", trend: "Nominal" }
+                      ].map(stat => (
+                        <div key={stat.label} className="p-6 rounded-2xl bg-white/[0.02] border border-white/5">
+                           <div className="text-[10px] uppercase font-black tracking-widest text-text-dimmed mb-2">{stat.label}</div>
+                           <div className="flex items-end justify-between">
+                              <div className="text-2xl font-black">{stat.value}</div>
+                              <div className="text-[10px] font-black text-emerald-500">{stat.trend}</div>
+                           </div>
+                        </div>
+                      ))}
+                   </div>
 
-               {/* Table */}
-               <div className="flex-1 overflow-y-auto px-8 pb-8">
-                  <div className="rounded-2xl border border-white/5 bg-white/[0.01] overflow-hidden">
-                     <table className="w-full text-left">
-                        <thead>
-                           <tr className="border-b border-white/5 bg-white/[0.02]">
-                              <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-text-dimmed">Employee</th>
-                              <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-text-dimmed">Role</th>
-                              <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-text-dimmed">Status</th>
-                              <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-text-dimmed text-right">Actions</th>
-                           </tr>
-                        </thead>
-                        <tbody className="divide-y divide-white/5">
-                           {employees.map(emp => (
-                             <tr key={emp.id} className="hover:bg-white/[0.02] transition-colors group">
-                                <td className="px-6 py-4">
-                                   <div className="flex items-center gap-3">
-                                      <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-[10px] font-black text-purple-500 border border-purple-500/30">
-                                         {emp.name.split(' ').map(n=>n[0]).join('')}
-                                      </div>
-                                      <div>
-                                         <div className="text-xs font-bold">{emp.name}</div>
-                                         <div className="text-[10px] text-text-dimmed">Joined {emp.joinDate}</div>
-                                      </div>
-                                   </div>
-                                </td>
-                                <td className="px-6 py-4 text-xs font-medium text-white/70">{emp.role}</td>
-                                <td className="px-6 py-4">
-                                   <span className={cn(
-                                       "px-2 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
-                                       emp.status === 'Active' ? "bg-emerald-500/10 text-emerald-500" : "bg-orange-500/10 text-orange-500"
-                                   )}>
-                                      {emp.status}
-                                   </span>
-                                </td>
-                                <td className="px-6 py-4 text-right">
-                                   <button 
-                                      onClick={() => deleteEmployee(emp.id)}
-                                      className="text-text-dimmed hover:text-red-500 transition-colors bg-white/5 p-2 rounded-lg"
-                                   >
-                                      <MoreHorizontal size={16} />
-                                   </button>
-                                </td>
-                             </tr>
-                           ))}
-                        </tbody>
-                     </table>
+                   {/* Table */}
+                   <div className="rounded-2xl border border-white/5 bg-white/[0.01] overflow-hidden">
+                      <table className="w-full text-left">
+                         <thead>
+                            <tr className="border-b border-white/5 bg-white/[0.02]">
+                               <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-text-dimmed">Employee</th>
+                               <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-text-dimmed">Role</th>
+                               <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-text-dimmed">Status</th>
+                               <th className="px-6 py-4 text-[10px] font-black uppercase tracking-widest text-text-dimmed text-right">Actions</th>
+                            </tr>
+                         </thead>
+                         <tbody className="divide-y divide-white/5">
+                            {employees.map(emp => (
+                              <tr key={emp.id} className="hover:bg-white/[0.02] transition-colors group">
+                                 <td className="px-6 py-4">
+                                    <div className="flex items-center gap-3">
+                                       <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center text-[10px] font-black text-purple-500 border border-purple-500/30">
+                                          {emp.name.split(' ').map(n=>n[0]).join('')}
+                                       </div>
+                                       <div>
+                                          <div className="text-xs font-bold">{emp.name}</div>
+                                          <div className="text-[10px] text-text-dimmed">Joined {emp.joinDate}</div>
+                                       </div>
+                                    </div>
+                                 </td>
+                                 <td className="px-6 py-4 text-xs font-medium text-white/70">{emp.role}</td>
+                                 <td className="px-6 py-4">
+                                    <span className={cn(
+                                        "px-2 py-1 rounded-full text-[10px] font-black uppercase tracking-widest",
+                                        emp.status === 'Active' ? "bg-emerald-500/10 text-emerald-500" : "bg-orange-500/10 text-orange-500"
+                                    )}>
+                                       {emp.status}
+                                    </span>
+                                 </td>
+                                 <td className="px-6 py-4 text-right">
+                                    <button 
+                                       onClick={() => deleteEmployee(emp.id)}
+                                       className="text-text-dimmed hover:text-red-500 transition-colors bg-white/5 p-2 rounded-lg"
+                                    >
+                                       <MoreHorizontal size={16} />
+                                    </button>
+                                 </td>
+                              </tr>
+                            ))}
+                         </tbody>
+                      </table>
+                   </div>
+                 </>
+               )}
+
+               {activeTab === 'Payroll' && (
+                  <div className="space-y-6">
+                     <div className="p-8 rounded-2xl bg-gradient-to-br from-purple-500/20 to-indigo-500/5 border border-purple-500/30">
+                         <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-purple-400 mb-2">Total Monthly Disbursement</h4>
+                         <div className="text-4xl font-black mb-6">$540,000<span className="text-xl text-white/30">.00</span></div>
+                         <button className="px-6 py-3 rounded-xl bg-purple-500 font-black text-xs uppercase tracking-widest hover:bg-purple-600 transition-colors">
+                            Process Payroll Run ➔
+                         </button>
+                     </div>
+                     <div className="grid grid-cols-2 gap-6">
+                        {employees.map(emp => (
+                           <div key={emp.id} className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 flex justify-between items-center group cursor-pointer hover:border-purple-500/30 transition-all">
+                              <div>
+                                 <div className="font-bold text-sm mb-1">{emp.name}</div>
+                                 <div className="text-[10px] text-text-dimmed uppercase tracking-widest">{emp.role}</div>
+                              </div>
+                              <div className="text-right">
+                                  <div className="font-black text-lg text-emerald-500 group-hover:text-emerald-400 transition-all">{emp.salary}</div>
+                                  <div className="text-[8px] text-white/30 uppercase tracking-[0.2em]">Annual Base</div>
+                              </div>
+                           </div>
+                        ))}
+                     </div>
                   </div>
-               </div>
-             </>
-           ) : (
-             <div className="flex-1 flex flex-col items-center justify-center text-center p-20 opacity-40">
-                <Users size={64} className="mb-6" />
-                <h4 className="text-xl font-black uppercase mb-2">Module Offline</h4>
-                <p className="max-w-xs text-xs font-bold tracking-widest">Integrating with corporate backend via CrepTech Secure Bridge...</p>
-             </div>
-           )}
+               )}
+
+               {activeTab === 'Attendance' && (
+                  <div className="space-y-6">
+                     <div className="grid grid-cols-4 gap-4">
+                        {['Mon', 'Tue', 'Wed', 'Thu', 'Fri'].map((day, i) => (
+                           <div key={day} className="p-4 rounded-xl bg-white/[0.02] border border-white/5 text-center">
+                              <div className="text-xs font-bold mb-2 uppercase tracking-widest">{day}</div>
+                              <div className="w-8 h-8 rounded-full border-2 border-emerald-500 mx-auto flex items-center justify-center">
+                                 <div className="w-2 h-2 rounded-full bg-emerald-500" />
+                              </div>
+                           </div>
+                        ))}
+                     </div>
+                     <div className="p-8 rounded-2xl bg-white/[0.02] border border-white/5 text-center">
+                        <Calendar className="mx-auto mb-4 text-purple-500 opacity-50" size={32} />
+                        <h4 className="text-lg font-black uppercase tracking-tighter mb-2">Punch Card Active</h4>
+                        <p className="text-xs text-text-dimmed mb-6">You are currently clocked in for the Global HQ Location.</p>
+                        <button className="px-8 py-4 rounded-xl border border-red-500 text-red-500 font-black text-xs uppercase tracking-widest hover:bg-red-500/10 transition-colors">
+                           Clock Out
+                        </button>
+                     </div>
+                  </div>
+               )}
+
+               {activeTab === 'Performance' && (
+                  <div className="space-y-6">
+                      <div className="p-8 rounded-2xl bg-white/[0.02] border border-white/5 text-center">
+                        <TrendingUp className="mx-auto mb-4 text-purple-500 opacity-50" size={32} />
+                        <h4 className="text-lg font-black uppercase tracking-tighter mb-2">Q3 Reviews In Progress</h4>
+                        <p className="text-xs text-text-dimmed mb-6">4 managers have yet to submit their reports.</p>
+                        <button className="px-8 py-4 rounded-xl bg-white/5 font-black text-xs uppercase tracking-widest hover:bg-white/10 transition-colors">
+                           Remind Managers
+                        </button>
+                     </div>
+                  </div>
+               )}
+           </div>
         </div>
       </div>
     </div>
