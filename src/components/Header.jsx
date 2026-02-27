@@ -10,8 +10,7 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto px-8 h-16 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2 group">
-          <div className="w-7 h-7 rounded-lg bg-primary-blue flex items-center justify-center font-black text-xs group-hover:rotate-[360deg] transition-all duration-700">C</div>
-          <span className="text-sm font-black tracking-tighter uppercase">Crep<span className="text-primary-blue">Tech</span></span>
+          <img src="/assets/full-logo.png" className="h-8 md:h-10 w-auto object-contain transition-transform group-hover:scale-105 duration-500" alt="CrepTech Full Logo" />
         </Link>
         
         <nav className="hidden lg:flex items-center gap-8">

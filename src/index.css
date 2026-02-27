@@ -25,6 +25,26 @@
 
   * {
     border-color: var(--color-border-subtle);
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-border-subtle) var(--color-deep-black);
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--color-deep-black);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-border-subtle);
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary-blue);
   }
 }
 
