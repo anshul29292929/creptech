@@ -5,8 +5,9 @@ import { TextGenerateEffect } from './ui/text-generate-effect';
 
 export default function Hero() {
   return (
-    <section className="relative min-h-screen w-full flex flex-col items-center justify-center pt-20 overflow-hidden bg-deep-black">
-      <div className="absolute inset-0 bg-noise pointer-events-none" />
+    <>
+      <section className="relative min-h-screen w-full flex flex-col items-center justify-center pt-20 overflow-hidden bg-deep-black">
+        <div className="absolute inset-0 bg-noise pointer-events-none" />
       
       <div className="container mx-auto px-6 relative z-10 text-center mb-20">
         <motion.div
@@ -71,30 +72,32 @@ export default function Hero() {
           ))}
         </div>
       </div>
-
-      <BackgroundBeams />
-      {/* Brand Punchlines Marquee */}
-      <div className="absolute bottom-10 left-0 w-full overflow-hidden border-y border-white/5 py-8 bg-black/40 backdrop-blur-md z-20">
-         <motion.div 
-           initial={{ x: 0 }}
-           animate={{ x: "-50%" }}
-           transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-           className="flex whitespace-nowrap gap-x-20"
-         >
-            {[1, 2, 3, 4].map(i => (
-              <div key={i} className="flex gap-x-20 items-center">
-                <span className="text-xl md:text-3xl font-black uppercase text-text-dimmed group">
-                  Tired of <span className="text-white group-hover:text-primary-blue transition-colors">high end prices</span> for website?
-                </span>
-                <div className="w-3 h-3 rounded-full bg-primary-blue shadow-[0_0_10px_rgba(0,123,255,0.8)]" />
-                <span className="text-xl md:text-3xl font-black uppercase text-text-dimmed group">
-                  Looking for agency <span className="text-white group-hover:text-primary-blue transition-colors">one call away</span> then ur wait ends here
-                </span>
-                <div className="w-3 h-3 rounded-full bg-primary-blue shadow-[0_0_10px_rgba(0,123,255,0.8)]" />
-              </div>
-            ))}
-         </motion.div>
-      </div>
     </section>
+
+    <BackgroundBeams />
+    {/* Brand Punchlines Marquee */}
+    <div className="w-full overflow-hidden border-b border-light-gray py-12 bg-[#050505] relative z-20">
+       <motion.div 
+         initial={{ x: 0 }}
+         animate={{ x: "-50%" }}
+         transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+         className="flex whitespace-nowrap gap-x-20"
+       >
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="flex gap-x-20 items-center">
+              <span className="text-xl md:text-4xl font-black uppercase text-text-dimmed group">
+                Tired of <span className="text-white group-hover:text-primary-blue transition-colors">high end prices</span> for websites?
+              </span>
+              <div className="w-4 h-4 rounded-full bg-primary-blue shadow-[0_0_15px_rgba(0,123,255,0.8)]" />
+              <div className="text-xl md:text-4xl font-black uppercase text-text-dimmed group flex items-center gap-4">
+                Looking for an agency <span className="text-white group-hover:text-primary-blue transition-colors">one call away?</span> 
+                <a href="/contact" className="text-primary-blue underline underline-offset-8 decoration-4 hover:text-white transition-colors cursor-pointer">Your wait ends here.</a>
+              </div>
+              <div className="w-4 h-4 rounded-full bg-primary-blue shadow-[0_0_15px_rgba(0,123,255,0.8)]" />
+            </div>
+          ))}
+       </motion.div>
+    </div>
+    </>
   );
 }
