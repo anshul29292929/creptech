@@ -11,6 +11,7 @@ const INITIAL_EMPLOYEES = [
 ];
 
 export default function HRMApp() {
+  const [view, setView] = useState('home');
   const [employees, setEmployees] = useState(INITIAL_EMPLOYEES);
   const [activeTab, setActiveTab] = useState('Employees');
   const [showHireModal, setShowHireModal] = useState(false);
@@ -33,8 +34,98 @@ export default function HRMApp() {
      setEmployees(prev => prev.filter(emp => emp.id !== id));
   };
 
+
+  if (view === 'home') {
+    return (
+      <div className="w-full h-full bg-[#050505] text-white flex flex-col relative overflow-y-auto overflow-x-hidden group/home">
+        
+        {/* Top Section (Hero) */}
+        <div className="min-h-full flex flex-col relative shrink-0">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-20 group-hover/home:scale-105 transition-transform duration-[10s]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/90 to-transparent" />
+          
+          <div className="relative z-10 px-10 py-8 flex justify-between items-center">
+             <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-purple-500 flex items-center justify-center font-black">H</div>
+                <span className="text-sm font-black uppercase tracking-tighter">HR<span className="text-purple-500">Pulse</span> Suite</span>
+             </div>
+             <div className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest text-white/50">
+                <span className="text-white">Platform</span>
+                <span className="hover:text-white cursor-pointer transition-colors">Enterprise</span>
+                <span className="hover:text-white cursor-pointer transition-colors">Resources</span>
+             </div>
+          </div>
+
+          <div className="flex-1 relative z-10 flex flex-col items-center justify-center text-center px-6 py-20">
+             <motion.div
+               initial={{ opacity: 0, y: 30 }}
+               animate={{ opacity: 1, y: 0 }}
+               className="max-w-3xl"
+             >
+                <span className="text-purple-500 font-black tracking-[0.4em] uppercase text-[10px] mb-6 block">Next-Gen Human Capital</span>
+                <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9] mb-8">
+                  People <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-600">First.</span>
+                </h1>
+                <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto font-medium">
+                  A modular HR suite built for speed. Automate payroll, supercharge performance reviews, and scale onboarding natively.
+                </p>
+                <div className="flex flex-wrap justify-center gap-4">
+                   <button 
+                    onClick={() => setView('portal')}
+                    className="px-10 py-5 rounded-2xl bg-purple-500 font-black text-xs uppercase tracking-widest hover:shadow-[0_0_40px_rgba(168,85,247,0.4)] transition-all active:scale-95 text-white"
+                   >
+                      Initiate Demo Site Now
+                   </button>
+                </div>
+             </motion.div>
+          </div>
+
+          <div className="relative z-10 px-10 py-8 border-t border-white/5 bg-black/40 flex justify-center gap-16 overflow-x-auto">
+             {[
+               { label: "Payroll Accuracy", value: "99.99%" },
+               { label: "Onboarding Time", value: "-45%" },
+               { label: "System Uptime", value: "100%" }
+             ].map(stat => (
+               <div key={stat.label} className="text-center">
+                  <div className="text-xl font-black mb-1">{stat.value}</div>
+                  <div className="text-[8px] font-black uppercase tracking-[0.2em] text-white/30">{stat.label}</div>
+               </div>
+             ))}
+          </div>
+        </div>
+
+        {/* Scrollable Extra Section */}
+        <div className="relative z-10 bg-[#050505] shrink-0 py-24 px-10">
+           <div className="max-w-5xl mx-auto">
+              <span className="text-purple-500 font-black tracking-[0.4em] uppercase text-[10px] mb-4 block text-center">Platform Capabilities</span>
+              <h2 className="text-4xl font-black uppercase text-center mb-16 tracking-tighter">Unified Workforce</h2>
+              
+              <div className="grid md:grid-cols-3 gap-8">
+                 {[
+                   { title: "Dynamic Payroll", icon: <DollarSign size={32} />, desc: "Automated global compliance, tax mitigation, and one-click salary dispatch." },
+                   { title: "Analytics Engine", icon: <TrendingUp size={32} />, desc: "Real-time insights correlating employee sentiment directly with productivity." },
+                   { title: "Cloud Directory", icon: <Users size={32} />, desc: "Zero-latency employee search syncing beautifully across your SaaS stack." }
+                 ].map((feature, i) => (
+                   <div key={i} className="p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-purple-500/30 transition-all">
+                      <div className="text-purple-500 mb-4">
+                         {feature.icon}
+                      </div>
+                      <h4 className="text-xl font-black mb-3">{feature.title}</h4>
+                      <p className="text-sm text-white/50">{feature.desc}</p>
+                   </div>
+                 ))}
+              </div>
+           </div>
+        </div>
+
+      </div>
+    );
+  }
+
   return (
     <div className="w-full h-full bg-[#080808] flex flex-col rounded-3xl overflow-hidden border border-white/5 text-white relative">
+
       {/* Hire Modal */}
       {showHireModal && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-6">

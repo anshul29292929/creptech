@@ -24,67 +24,106 @@ export default function RealEstateApp() {
 
   if (view === 'home') {
     return (
-      <div className="w-full h-full bg-[#050505] text-white flex flex-col relative overflow-hidden group/home">
-        {/* Background Texture */}
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-30 group-hover/home:scale-105 transition-transform duration-[10s]" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent" />
+      <div className="w-full h-full bg-[#050505] text-white flex flex-col relative overflow-y-auto overflow-x-hidden group/home">
         
-        {/* Nav Bar Simulation */}
-        <div className="relative z-10 px-10 py-8 flex justify-between items-center">
-           <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-primary-blue flex items-center justify-center font-black">C</div>
-              <span className="text-sm font-black uppercase tracking-tighter">Crep<span className="text-primary-blue">Tech</span> Properties</span>
-           </div>
-           <div className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest text-white/50">
-              <span className="text-white">Home</span>
-              <span className="hover:text-white cursor-pointer transition-colors">Listings</span>
-              <span className="hover:text-white cursor-pointer transition-colors">Agents</span>
-              <span className="hover:text-white cursor-pointer transition-colors">Contact</span>
-           </div>
-        </div>
-
-        {/* Hero Section */}
-        <div className="flex-1 relative z-10 flex flex-col items-center justify-center text-center px-6">
-           <motion.div
-             initial={{ opacity: 0, y: 30 }}
-             animate={{ opacity: 1, y: 0 }}
-             className="max-w-3xl"
-           >
-              <span className="text-primary-blue font-black tracking-[0.4em] uppercase text-[10px] mb-6 block">Elite Real Estate Solutions</span>
-              <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9] mb-8">
-                The Future of <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-blue to-purple-500">Living.</span>
-              </h1>
-              <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto font-medium">
-                Experience world-class property management engineered by CrepTech. Smart, secure, and infinitely scalable.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                 <button 
-                  onClick={() => setView('portal')}
-                  className="px-10 py-5 rounded-2xl bg-primary-blue font-black text-xs uppercase tracking-widest hover:shadow-[0_0_40px_rgba(0,123,255,0.4)] transition-all active:scale-95"
-                 >
-                    Enter Management Portal
-                 </button>
-                 <button className="px-10 py-5 rounded-2xl bg-white/5 border border-white/10 font-black text-xs uppercase tracking-widest hover:bg-white/10 transition-all">
-                    Explore Listings
-                 </button>
-              </div>
-           </motion.div>
-        </div>
-
-        {/* Footer Stats */}
-        <div className="relative z-10 px-10 py-8 border-t border-white/5 bg-black/40 flex justify-center gap-16 overflow-x-auto">
-           {[
-             { label: "Assets Managed", value: "$4.2B" },
-             { label: "Global Reach", value: "24 Cities" },
-             { label: "Average ROI", value: "32%" }
-           ].map(stat => (
-             <div key={stat.label} className="text-center">
-                <div className="text-xl font-black mb-1">{stat.value}</div>
-                <div className="text-[8px] font-black uppercase tracking-[0.2em] text-white/30">{stat.label}</div>
+        {/* Top Section (Hero) */}
+        <div className="min-h-full flex flex-col relative shrink-0">
+          {/* Background Texture */}
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-30 group-hover/home:scale-105 transition-transform duration-[10s]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent" />
+          
+          {/* Nav Bar Simulation */}
+          <div className="relative z-10 px-10 py-8 flex justify-between items-center">
+             <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-primary-blue flex items-center justify-center font-black">C</div>
+                <span className="text-sm font-black uppercase tracking-tighter">Crep<span className="text-primary-blue">Tech</span> Properties</span>
              </div>
-           ))}
+             <div className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest text-white/50">
+                <span className="text-white">Home</span>
+                <span className="hover:text-white cursor-pointer transition-colors">Listings</span>
+                <span className="hover:text-white cursor-pointer transition-colors">Agents</span>
+                <span className="hover:text-white cursor-pointer transition-colors">Contact</span>
+             </div>
+          </div>
+
+          {/* Hero Section */}
+          <div className="flex-1 relative z-10 flex flex-col items-center justify-center text-center px-6 py-20">
+             <motion.div
+               initial={{ opacity: 0, y: 30 }}
+               animate={{ opacity: 1, y: 0 }}
+               className="max-w-3xl"
+             >
+                <span className="text-primary-blue font-black tracking-[0.4em] uppercase text-[10px] mb-6 block">Elite Real Estate Solutions</span>
+                <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase leading-[0.9] mb-8">
+                  The Future of <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-blue to-purple-500">Living.</span>
+                </h1>
+                <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto font-medium">
+                  Experience world-class property management engineered by CrepTech. Smart, secure, and infinitely scalable.
+                </p>
+                <div className="flex flex-wrap justify-center gap-4">
+                   <button 
+                    onClick={() => setView('portal')}
+                    className="px-10 py-5 rounded-2xl bg-primary-blue font-black text-xs uppercase tracking-widest hover:shadow-[0_0_40px_rgba(0,123,255,0.4)] transition-all active:scale-95"
+                   >
+                      Initiate Demo Site Now
+                   </button>
+                   <button className="px-10 py-5 rounded-2xl bg-white/5 border border-white/10 font-black text-xs uppercase tracking-widest hover:bg-white/10 transition-all">
+                      Explore Listings
+                   </button>
+                </div>
+             </motion.div>
+          </div>
+
+          {/* Footer Stats inside hero */}
+          <div className="relative z-10 px-10 py-8 border-t border-white/5 bg-black/40 flex justify-center gap-16 overflow-x-auto">
+             {[
+               { label: "Assets Managed", value: "$4.2B" },
+               { label: "Global Reach", value: "24 Cities" },
+               { label: "Average ROI", value: "32%" }
+             ].map(stat => (
+               <div key={stat.label} className="text-center">
+                  <div className="text-xl font-black mb-1">{stat.value}</div>
+                  <div className="text-[8px] font-black uppercase tracking-[0.2em] text-white/30">{stat.label}</div>
+               </div>
+             ))}
+          </div>
         </div>
+
+        {/* Extra Home Sections to make it scrollable */}
+        <div className="relative z-10 bg-[#050505] shrink-0 py-24 px-10">
+           <div className="max-w-5xl mx-auto">
+              <span className="text-primary-blue font-black tracking-[0.4em] uppercase text-[10px] mb-4 block text-center">Next-Gen Amenities</span>
+              <h2 className="text-4xl font-black uppercase text-center mb-16 tracking-tighter">Powered By CrepTech</h2>
+              
+              <div className="grid md:grid-cols-3 gap-8">
+                 {[
+                   { title: "Virtual Tours", desc: "Experience properties from anywhere with our proprietary seamless 3D engine." },
+                   { title: "Smart Contracts", desc: "Automate leasing and purchases with blockchain-verified documentation." },
+                   { title: "AI Valuations", desc: "Real-time market analysis and property valuation powered by machine learning." }
+                 ].map((feature, i) => (
+                   <div key={i} className="p-8 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-primary-blue/30 transition-all">
+                      <div className="text-primary-blue mb-4">
+                         <MapPin size={32} />
+                      </div>
+                      <h4 className="text-xl font-black mb-3">{feature.title}</h4>
+                      <p className="text-sm text-white/50">{feature.desc}</p>
+                   </div>
+                 ))}
+              </div>
+           </div>
+        </div>
+
+        <div className="relative z-10 bg-black/40 border-t border-white/5 py-12 px-10 text-center">
+          <h2 className="text-2xl font-black uppercase mb-6 tracking-tighter">Ready to take control?</h2>
+          <button 
+             onClick={() => setView('portal')}
+             className="px-8 py-4 rounded-xl bg-white text-black font-black text-xs uppercase tracking-widest hover:scale-105 transition-all"
+          >
+             Initiate Demo Site Now
+          </button>
+        </div>
+
       </div>
     );
   }
