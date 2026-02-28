@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X, Send, Loader2, CheckCircle, AlertCircle, Sparkles } from 'lucide-react';
 
-const FORM_ENDPOINT = 'https://creptech.online/api/contact.php';
+const FORM_ENDPOINT = '/api/contact.php';
 
 const plans = [
   {
@@ -126,6 +126,17 @@ function PlanModal({ plan, onClose }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
+
+    // Simulate successful form submission on local development server
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      setTimeout(() => {
+        setStatus('success');
+        setForm({ name: '', email: '', phone: '', company: '', message: '' });
+        console.log('Local dev environment detected: Form submission mocked successfully.');
+      }, 1500);
+      return;
+    }
+
     try {
       const res = await fetch(FORM_ENDPOINT, {
         method: 'POST',

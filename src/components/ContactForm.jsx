@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Send, MapPin, Mail, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
-const FORM_ENDPOINT = 'https://creptech.online/api/contact.php';
+const FORM_ENDPOINT = '/api/contact.php';
 
 const ContactForm = () => {
   const [form, setForm] = useState({ name: '', email: '', scale: '', message: '' });
@@ -14,6 +14,17 @@ const ContactForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('loading');
+
+    // Simulate successful form submission on local development server
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      setTimeout(() => {
+        setStatus('success');
+        setForm({ name: '', email: '', scale: '', message: '' });
+        console.log('Local dev environment detected: Form submission mocked successfully.');
+      }, 1500);
+      return;
+    }
+
     try {
       const res = await fetch(FORM_ENDPOINT, {
         method: 'POST',
@@ -145,10 +156,15 @@ const ContactForm = () => {
                         onChange={handleChange}
                         className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-primary-blue focus:bg-white/[0.05] transition-all appearance-none cursor-pointer"
                       >
-                        <option value="" className="bg-surface-dark text-text-dimmed">Project Scale</option>
-                        <option value="Small Scale (MVP)" className="bg-surface-dark">Small Scale (MVP)</option>
-                        <option value="Medium Scale (SaaS)" className="bg-surface-dark">Medium Scale (SaaS)</option>
-                        <option value="Large Scale (Enterprise)" className="bg-surface-dark">Large Scale (Enterprise)</option>
+                        <option value="" className="bg-surface-dark text-text-dimmed">Reason for Contact</option>
+                        <option value="General Enquiry" className="bg-surface-dark">General Enquiry</option>
+                        <option value="Call Back Request" className="bg-surface-dark">Call Back Request</option>
+                        <option value="Business Website Development" className="bg-surface-dark">Business Website Development</option>
+                        <option value="E-commerce Website" className="bg-surface-dark">E-commerce Website</option>
+                        <option value="Portfolio Website" className="bg-surface-dark">Portfolio Website</option>
+                        <option value="Website Redesign" className="bg-surface-dark">Website Redesign</option>
+                        <option value="SEO Optimization" className="bg-surface-dark">SEO Optimization</option>
+                        <option value="Website Maintenance" className="bg-surface-dark">Website Maintenance</option>
                       </select>
                       <textarea
                         name="message"

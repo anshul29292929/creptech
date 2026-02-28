@@ -74,7 +74,16 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-6 md:px-8 h-16 flex items-center justify-between">
 
           {/* Logo */}
-          <Link to="/" className="flex items-center group shrink-0">
+          <Link 
+            to="/" 
+            className="flex items-center group shrink-0"
+            onClick={(e) => {
+              if (location.pathname === '/') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
+          >
             <img
               src="/assets/logo.png"
               className="h-8 md:h-10 w-auto object-contain transition-transform group-hover:scale-105 duration-500"
