@@ -3,13 +3,24 @@ import { motion } from 'framer-motion';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
-import ServiceTiers from './components/ServiceTiers';
-import PricingPhilosophy from './components/PricingPhilosophy';
+import WebServicesGrid from './components/WebServicesGrid';
+import WebPricingSection from './components/WebPricingSection';
+import FAQSection from './components/FAQSection';
 import BentoPortfolio from './components/BentoPortfolio';
 import ContactForm from './components/ContactForm';
 import Footer from './components/Footer';
 import SDLCFlow from './components/SDLCFlow';
 import ProjectShowcase from './components/ProjectShowcase';
+import CompanyPage from './components/CompanyPage';
+import ProcessPage from './components/ProcessPage';
+import PricingPage from './components/PricingPage';
+import CareersPage from './components/CareersPage';
+import JournalPage from './components/JournalPage';
+import LegalPage from './components/LegalPage';
+import PrivacyTermsPage from './components/PrivacyTermsPage';
+import ScrollToTop from './components/SmoothScroll';
+import CustomCursor from './components/CustomCursor';
+import ScrollToTopWidget from './components/ScrollToTopWidget';
 import { InfiniteMovingCards } from './components/ui/infinite-moving-cards';
 import { LampContainer } from './components/ui/lamp';
 
@@ -35,7 +46,7 @@ function Home() {
   return (
     <>
       <Hero />
-      
+
       <section className="bg-deep-black">
         <LampContainer>
           <motion.h1
@@ -56,18 +67,27 @@ function Home() {
             transition={{ delay: 1, duration: 1 }}
             className="text-text-dimmed text-center max-w-xl mx-auto mt-6 text-lg"
           >
-            We bridge the gap between complex engineering and elegant design. 
+            We bridge the gap between complex engineering and elegant design.
             Delivering the "Nominal Pricing" promise without compromising on "Elite Quality."
           </motion.p>
         </LampContainer>
       </section>
 
-      <div className="py-20">
+      <div className="relative z-20 py-10 md:py-20 -mt-32 md:-mt-48">
+        {/* Subtle background glow for the testimonials */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-[200px] bg-primary-blue/5 rounded-full blur-[100px] pointer-events-none" />
         <InfiniteMovingCards items={testimonials} direction="right" speed="slow" />
       </div>
-      <ServiceTiers />
+
+      {/* Web services we provide */}
+      <WebServicesGrid />
+
       <SDLCFlow />
-      <PricingPhilosophy />
+
+      {/* Website pricing plans */}
+      <WebPricingSection />
+
+      <FAQSection />
       <BentoPortfolio />
       <ContactForm />
     </>
@@ -77,17 +97,25 @@ function Home() {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
+      <CustomCursor />
       <main className="bg-deep-black text-white selection:bg-primary-blue selection:text-white">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/services" element={<ServiceTiers />} />
           <Route path="/portfolio" element={<BentoPortfolio />} />
-          <Route path="/prices" element={<PricingPhilosophy />} />
           <Route path="/contact" element={<ContactForm />} />
+          <Route path="/company" element={<CompanyPage />} />
           <Route path="/project/:slug" element={<ProjectShowcase />} />
+          <Route path="/process" element={<ProcessPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/careers" element={<CareersPage />} />
+          <Route path="/journal" element={<JournalPage />} />
+          <Route path="/legal" element={<LegalPage />} />
+          <Route path="/privacy-terms" element={<PrivacyTermsPage />} />
         </Routes>
         <Footer />
+        <ScrollToTopWidget />
       </main>
     </Router>
   );

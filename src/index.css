@@ -2,8 +2,8 @@
 
 @theme {
   --color-primary-blue: #007BFF;
-  --color-deep-black: #000000;
-  --color-surface-dark: #0A0A0A;
+  --color-deep-black: #05070E;
+  --color-surface-dark: #0F111A;
   --color-border-subtle: rgba(255, 255, 255, 0.08);
   --color-text-dimmed: #A1A1AA;
 }
