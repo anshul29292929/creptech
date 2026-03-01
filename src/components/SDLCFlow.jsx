@@ -103,12 +103,29 @@ export default function SDLCFlow() {
           {/* Main Connection Lines (Desktop) */}
           <div className="absolute top-[48px] left-[5%] right-[5%] h-[2px] bg-gradient-to-r from-transparent via-white/10 to-transparent hidden lg:block" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-y-16 lg:gap-8 relative lg:px-4">
+          <div className="flex flex-col lg:grid lg:grid-cols-6 gap-y-24 lg:gap-8 relative lg:px-4">
             {stages.map((stage, i) => (
               <div key={stage.id} className="relative group">
-                {/* Node Connection Points */}
+                {/* Node Connection Points (Desktop) */}
                 <div className="absolute top-1/2 left-0 w-full h-[1px] bg-white/5 -translate-y-1/2 hidden lg:group-hover:block transition-all" />
                 
+                {/* Vertical Connection Line (Mobile/Tablet) */}
+                {i < stages.length - 1 && (
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 w-[2px] h-24 lg:hidden overflow-hidden">
+                    <div className="w-full h-full bg-white/5" />
+                    <motion.div 
+                      animate={{ y: ["0%", "100%"] }}
+                      transition={{ 
+                        repeat: Infinity, 
+                        duration: 2, 
+                        ease: "linear",
+                        delay: i * 0.3
+                      }}
+                      className="absolute top-0 w-full h-12 bg-gradient-to-b from-transparent via-blue-400 to-transparent shadow-[0_0_15px_rgba(96,165,250,0.8)]"
+                    />
+                  </div>
+                )}
+
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -126,15 +143,15 @@ export default function SDLCFlow() {
                       
                       {/* Node Active Pulse */}
                       <motion.div 
-                        animate={{ opacity: [0.1, 0.3, 0.1] }}
+                        animate={{ opacity: [0.1, 0.4, 0.1] }}
                         transition={{ duration: 2, repeat: Infinity }}
                         className={`absolute inset-0 ${stage.bg}`} 
                       />
                     </div>
 
                     {/* Outer Rings */}
-                    <div className={`absolute -inset-2 rounded-[2rem] border ${stage.border} opacity-0 group-hover:opacity-40 transition-opacity animate-spin-slow`} />
-                    <div className={`absolute -inset-4 rounded-[2.5rem] border ${stage.border} opacity-0 group-hover:opacity-20 transition-opacity animate-spin-slow-reverse`} />
+                    <div className={`absolute -inset-2 rounded-[2rem] border ${stage.border} opacity-20 lg:opacity-0 lg:group-hover:opacity-40 transition-opacity animate-spin-slow`} />
+                    <div className={`absolute -inset-4 rounded-[2.5rem] border ${stage.border} opacity-10 lg:opacity-0 lg:group-hover:opacity-20 transition-opacity animate-spin-slow-reverse`} />
                   </div>
 
                   <div className="text-center space-y-2">
@@ -148,20 +165,7 @@ export default function SDLCFlow() {
 
                 {/* Data Particle Flow (Desktop-only) */}
                 {i < stages.length - 1 && (
-                  <div className="absolute top-[48px] left-[70%] w-full h-[2px] hidden lg:block overflow-hidden pointer-events-none z-0">
-                    <motion.div 
-                      initial={{ x: "-100%" }}
-                      animate={{ x: "100%" }}
-                      transition={{ 
-                        repeat: Infinity, 
-                        duration: 3 + (i * 0.5), 
-                        ease: "linear",
-                        delay: i * 0.3
-                      }}
-                      className={`w-24 h-full bg-gradient-to-r from-transparent via-blue-400 to-transparent shadow-[0_0_15px_rgba(96,165,250,0.8)]`}
-                    />
-                    
-                    {/* Secondary Particle */}
+                  <div className="absolute top-[48px] left-[75%] w-full h-[2px] hidden lg:block overflow-hidden pointer-events-none z-0">
                     <motion.div 
                       initial={{ x: "-100%" }}
                       animate={{ x: "100%" }}
@@ -169,9 +173,9 @@ export default function SDLCFlow() {
                         repeat: Infinity, 
                         duration: 2.5, 
                         ease: "linear",
-                        delay: i * 0.8 + 1
+                        delay: i * 0.3
                       }}
-                      className="absolute top-0 w-2 h-2 rounded-full bg-white shadow-[0_0_10px_#fff]"
+                      className={`w-24 h-full bg-gradient-to-r from-transparent via-blue-400 to-transparent shadow-[0_0_15px_rgba(96,165,250,0.8)]`}
                     />
                   </div>
                 )}
