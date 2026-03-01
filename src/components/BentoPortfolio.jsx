@@ -65,7 +65,7 @@ const projects = [
 
 export default function BentoPortfolio() {
   return (
-    <section className="py-32 px-6 bg-deep-black">
+    <section id="portfolio" className="py-32 px-6 bg-deep-black">
       <Helmet>
         <title>Portfolio | CrepTech Case Studies & Selected Works</title>
         <meta name="description" content="Explore our curated collection of high-density digital engineering projects. See how CrepTech builds high-performing patient management systems, real estate platforms, and custom CRM solutions." />

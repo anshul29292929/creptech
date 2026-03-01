@@ -116,7 +116,7 @@ export default function Header() {
               to="/contact"
               className="hidden sm:block text-[10px] font-black uppercase tracking-[0.2em] px-6 py-2 rounded-full border border-white/10 hover:border-primary-blue/50 hover:text-primary-blue transition-all"
             >
-              Start Project
+              Contact Now
             </Link>
             <button
               onClick={() => setMobileOpen((v) => !v)}
@@ -166,7 +166,7 @@ export default function Header() {
                 onClick={() => setMobileOpen(false)}
                 className="mt-4 text-[10px] font-black uppercase tracking-[0.2em] py-3 rounded-full bg-primary-blue text-white text-center hover:bg-primary-blue/90 transition-all"
               >
-                Start Project
+                Contact Now
               </Link>
             </div>
           </motion.div>

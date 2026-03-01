@@ -142,7 +142,7 @@ export default function WebServicesGrid() {
             to="/contact"
             className="shrink-0 flex items-center gap-2 group text-primary-blue font-black text-xs uppercase tracking-widest hover:gap-3 transition-all pb-1"
           >
-            Start a Project <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            Contact Now <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 

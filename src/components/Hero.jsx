@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { BackgroundBeams } from './ui/background-beams';
@@ -41,12 +42,12 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.7 }}
           className="flex flex-col sm:flex-row gap-4 justify-center relative z-20"
         >
-          <button className="px-10 py-5 bg-primary-blue text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:shadow-[0_0_50px_rgba(0,123,255,0.4)] hover:scale-105 active:scale-95 transition-all flex items-center gap-3">
-            Start Your Journey <ArrowRight size={16} />
-          </button>
-          <button className="px-10 py-5 bg-white/5 border border-white/10 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-white/10 active:scale-95 transition-all">
-            Browse Portfolio
-          </button>
+          <Link to="/contact" className="px-10 py-5 bg-primary-blue text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:shadow-[0_0_50px_rgba(0,123,255,0.4)] hover:scale-105 active:scale-95 transition-all flex items-center gap-3">
+            Contact Now <ArrowRight size={16} />
+          </Link>
+          <Link to="#services" className="px-10 py-5 bg-white/5 border border-white/10 text-white rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-white/10 active:scale-95 transition-all">
+            Our Services
+          </Link>
         </motion.div>
       </div>
 
@@ -91,7 +92,7 @@ export default function Hero() {
               <div className="w-4 h-4 rounded-full bg-primary-blue shadow-[0_0_15px_rgba(0,123,255,0.8)]" />
               <div className="text-xl md:text-4xl font-black uppercase text-text-dimmed group flex items-center gap-4">
                 Looking for an agency <span className="text-white group-hover:text-primary-blue transition-colors">one call away?</span> 
-                <a href="/contact" className="text-primary-blue underline underline-offset-8 decoration-4 hover:text-white transition-colors cursor-pointer">Your wait ends here.</a>
+                <Link to="/contact" className="text-primary-blue underline underline-offset-8 decoration-4 hover:text-white transition-colors cursor-pointer">Your wait ends here.</Link>
               </div>
               <div className="w-4 h-4 rounded-full bg-primary-blue shadow-[0_0_15px_rgba(0,123,255,0.8)]" />
             </div>
