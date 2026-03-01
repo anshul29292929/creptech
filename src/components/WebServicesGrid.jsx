@@ -115,8 +115,23 @@ export default function WebServicesGrid() {
               What We Build
             </span>
             <h2 className="text-4xl xs:text-5xl md:text-6xl font-black tracking-tighter leading-none mb-6 uppercase break-words whitespace-normal">
-              Services <br />
-              <span className="text-primary-blue text-glow">We Provide.</span>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+              >
+                Services
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                className="text-primary-blue text-glow"
+              >
+                We Provide.
+              </motion.div>
             </h2>
             <p className="text-text-dimmed text-base sm:text-xl max-w-lg leading-relaxed">
               From idea to launch — we cover every facet of web development so you can focus on

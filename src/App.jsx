@@ -40,6 +40,16 @@ const testimonials = [
     quote: "Clean code, distributed systems expertise, and rapid delivery. Exactly what our series A startup needed.",
     name: "Elena Rodriguez",
     title: "VPE at QuantumLink"
+  },
+  {
+    quote: "Their team doesn't just build features; they architect solutions that scale. A rare find in the agency world.",
+    name: "David Park",
+    title: "Director of Product, Finvance"
+  },
+  {
+    quote: "The transition to a custom ERP was seamless. CrepTech's attention to detail and performance saved us thousands.",
+    name: "Julianne Smith",
+    title: "CEO, LogiTrack Systems"
   }
 ];
 
@@ -79,9 +89,20 @@ function Home() {
         </LampContainer>
       </section>
 
-      <div className="relative z-20 py-10 md:py-20 -mt-32 md:-mt-48">
+      <div className="relative z-20 py-20 -mt-32 md:-mt-48 overflow-hidden">
+        <div className="container mx-auto px-6 mb-12">
+            <motion.div 
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                className="flex flex-col items-center gap-4"
+            >
+                <div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-primary-blue to-transparent" />
+                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary-blue/60">Trusted by Global Engineering Teams</span>
+            </motion.div>
+        </div>
+
         {/* Subtle background glow for the testimonials */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-[200px] bg-primary-blue/5 rounded-full blur-[100px] pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl h-[300px] bg-primary-blue/5 rounded-full blur-[150px] pointer-events-none" />
         <InfiniteMovingCards items={testimonials} direction="right" speed="slow" />
       </div>
 
