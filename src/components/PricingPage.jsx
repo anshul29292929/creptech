@@ -1,10 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Helmet } from 'react-helmet-async';
 import WebPricingSection from './WebPricingSection';
 
 export default function PricingPage() {
   return (
     <div className="pt-24 min-h-screen bg-deep-black pb-32">
+      <Helmet>
+        <title>Pricing Plans | Transparent & Honest Nomimal Charges</title>
+        <meta name="description" content="Explore CrepTech's transparent pricing. From Kickstart plans to full E-commerce systems, we provide elite web development with no hidden fees and full code ownership." />
+        <link rel="canonical" href="https://creptech.online/pricing" />
+      </Helmet>
       <div className="container mx-auto px-6 text-center max-w-4xl mb-8">
         <motion.h1 
           initial={{ opacity: 0, y: 30 }}

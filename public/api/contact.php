@@ -26,18 +26,23 @@ $db   = 'u213047959_Divinetouch';
 // Extracted fields
 $name = $input['Name'] ?? 'Unknown';
 $email = $input['Email'] ?? 'No Email';
-$phone = $input['Phone'] ?? '';
-$company = $input['Company'] ?? '';
-$message = $input['Message'] ?? '';
+$phone = $input['Phone'] ?? 'Not provided';
+$company = $input['Company'] ?? 'Not provided';
+$message = $input['Message'] ?? 'No message provided';
 $subject = $input['_subject'] ?? 'New Form Submission';
 
-// Scale/Plan details
-$details = '';
-if (!empty($input['Project Scale'])) {
-    $details = "Scale: " . $input['Project Scale'];
-} elseif (!empty($input['Selected Plan'])) {
-    $details = "Plan: " . $input['Selected Plan'] . " (" . ($input['Plan Price'] ?? '') . ")";
+// Process Details (Merging Plan/Scale and Budget)
+$details_parts = [];
+if (!empty($input['Selected Plan'])) {
+    $details_parts[] = "Plan: " . $input['Selected Plan'] . " (" . ($input['Plan Price'] ?? '') . ")";
 }
+if (!empty($input['Project Scale'])) {
+    $details_parts[] = "Scale: " . $input['Project Scale'];
+}
+if (!empty($input['Estimated Budget'])) {
+    $details_parts[] = "Budget: " . $input['Estimated Budget'];
+}
+$details = implode(" | ", $details_parts);
 
 // 1. Database Insertion
 $conn = new mysqli($host, $user, $pass, $db);
@@ -55,7 +60,7 @@ $table_sql = "CREATE TABLE IF NOT EXISTS creptech_responses (
     email VARCHAR(255),
     phone VARCHAR(50),
     company VARCHAR(255),
-    details VARCHAR(255),
+    details TEXT,
     message TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )";
@@ -77,15 +82,22 @@ $headers .= "Reply-To: $email\r\n";
 $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
 
 $emailBody = "
-<h2>$subject</h2>
-<p><strong>Name:</strong> " . htmlspecialchars($name) . "</p>
-<p><strong>Email:</strong> " . htmlspecialchars($email) . "</p>
-<p><strong>Phone:</strong> " . htmlspecialchars($phone) . "</p>
-<p><strong>Company:</strong> " . htmlspecialchars($company) . "</p>
-<p><strong>Details:</strong> " . htmlspecialchars($details) . "</p>
-<p><strong>Message:</strong><br/>" . nl2br(htmlspecialchars($message)) . "</p>
-<hr>
-<p><small>This response has also been securely logged to the MySQL database.</small></p>
+<div style='font-family: inherit; font-size: 16px; color: #333;'>
+    <h2 style='color: #007bff; border-bottom: 2px solid #007bff; padding-bottom: 10px;'>$subject</h2>
+    <div style='background: #f8f9fa; padding: 20px; border-radius: 10px;'>
+        <p><strong>Name:</strong> " . htmlspecialchars($name) . "</p>
+        <p><strong>Email:</strong> " . htmlspecialchars($email) . "</p>
+        <p><strong>Phone:</strong> " . htmlspecialchars($phone) . "</p>
+        <p><strong>Company:</strong> " . htmlspecialchars($company) . "</p>
+        <p><strong>Project Details:</strong> " . htmlspecialchars($details) . "</p>
+        <p><strong>Message:</strong></p>
+        <div style='padding: 15px; background: white; border: 1px solid #ddd; border-radius: 5px;'>
+            " . nl2br(htmlspecialchars($message)) . "
+        </div>
+    </div>
+    <hr style='margin-top: 30px;'>
+    <p style='font-size: 12px; color: #777;'>Sent from CrepTech Online Inquiry System. Data has been securely logged to SQL database.</p>
+</div>
 ";
 
 $mailSent = mail($to, $subject, $emailBody, $headers);

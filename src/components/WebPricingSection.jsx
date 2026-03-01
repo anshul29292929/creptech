@@ -20,14 +20,13 @@ const plans = [
     btnBg: 'bg-amber-500 hover:bg-amber-400',
     badge: 'Best Entry Point',
     features: [
-      '1 fully responsive single-page site',
-      'Up to 5 sections (Hero, About, Services, Testimonials, Contact)',
-      'Mobile & tablet optimised',
-      'Basic contact section (mailto link)',
-      'Social media links integration',
-      'Basic on-page SEO (meta, OG tags)',
-      '7-day turnaround',
-      '7 days post-launch support',
+      { text: '1 fully responsive single-page site', included: true },
+      { text: 'Up to 5 sections', included: true },
+      { text: 'Mobile & tablet optimised', included: true },
+      { text: 'Basic SEO & Social integration', included: true },
+      { text: 'Hosting + Domain', included: false },
+      { text: 'Custom UI/UX Design', included: false },
+      { text: 'Advanced CMS System', included: false },
     ],
     popular: false,
   },
@@ -45,15 +44,13 @@ const plans = [
     glowColor: 'bg-emerald-500/20',
     btnBg: 'bg-emerald-500 hover:bg-emerald-400',
     features: [
-      'Up to 5 responsive pages',
-      'Mobile-first dynamic design',
-      'Contact form with direct email delivery',
-      'Google Analytics & Search Console setup',
-      'Standard on-page SEO optimization',
-      'Premium animations & interactions',
-      '100% Code & Asset Ownership',
-      '1 month free critical technical support',
-      'Direct developer communication channel',
+      { text: 'Up to 5 responsive pages', included: true },
+      { text: 'Mobile-first dynamic design', included: true },
+      { text: 'Hosting + Domain (.online/.in)', included: true },
+      { text: 'Standard SEO optimization', included: true },
+      { text: 'Custom UI/UX Design', included: false },
+      { text: 'E-commerce Functionality', included: false },
+      { text: 'Advanced Analytics', included: false },
     ],
     popular: false,
   },
@@ -71,14 +68,13 @@ const plans = [
     glowColor: 'bg-primary-blue/30',
     btnBg: 'bg-primary-blue hover:bg-blue-500',
     features: [
-      'Up to 15 pages',
-      'Custom UI/UX design',
-      'CMS integration',
-      'Advanced SEO optimization',
-      'Blog / News section',
-      '3 months free support',
-      'Performance optimization',
-      'Social media integration',
+      { text: 'Up to 15 pages', included: true },
+      { text: 'Custom UI/UX design', included: true },
+      { text: 'Hosting + Domain (.com/.in)', included: true },
+      { text: 'Advanced SEO & CMS', included: true },
+      { text: 'Secure Payment Gateway', included: false },
+      { text: 'Inventory Management', included: false },
+      { text: 'Order Tracking System', included: false },
     ],
     popular: true,
   },
@@ -96,18 +92,19 @@ const plans = [
     glowColor: 'bg-violet-500/20',
     btnBg: 'bg-violet-500 hover:bg-violet-400',
     features: [
-      'Unlimited product listings',
-      'Secure payment gateway',
-      'Inventory management',
-      'Order tracking system',
-      'Discount & coupon engine',
-      'Admin dashboard',
-      '6 months free support',
-      'Mobile app-ready API',
+      { text: 'Unlimited product listings', included: true },
+      { text: 'Secure payment gateway', included: true },
+      { text: 'Inventory & Order management', included: true },
+      { text: 'Hosting + Domain (.com)', included: true },
+      { text: 'Admin dashboard & Analytics', included: true },
+      { text: 'Advanced SEO & Blog', included: true },
+      { text: 'Dedicated 6-month Support', included: true },
     ],
     popular: false,
   },
 ];
+
+
 
 
 function PlanModal({ plan, onClose }) {
@@ -427,11 +424,17 @@ export default function WebPricingSection() {
                 {/* Features */}
                 <ul className="space-y-2 sm:space-y-3 mb-8 sm:mb-10 flex-1">
                   {plan.features.map((f, fi) => (
-                    <li key={fi} className="flex items-start gap-3 text-xs sm:text-sm text-white/80">
-                      <div className={`w-4 h-4 sm:w-5 sm:h-5 mt-0.5 rounded-full ${plan.bgGlow} flex items-center justify-center shrink-0`}>
-                        <Check size={10} className={plan.accentColor} />
+                    <li key={fi} className={`flex items-start gap-3 text-xs sm:text-sm ${f.included ? 'text-white/80' : 'text-white/30'}`}>
+                      <div className={`w-4 h-4 sm:w-5 sm:h-5 mt-0.5 rounded-full ${f.included ? plan.bgGlow : 'bg-white/5'} flex items-center justify-center shrink-0`}>
+                        {f.included ? (
+                          <Check size={10} className={plan.accentColor} />
+                        ) : (
+                          <X size={10} className="text-white/40" />
+                        )}
                       </div>
-                      <span className="leading-tight">{f}</span>
+                      <span className={`leading-tight ${!f.included ? 'line-through decoration-white/20' : ''}`}>
+                        {f.text}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -446,6 +449,45 @@ export default function WebPricingSection() {
               </motion.div>
             ))}
           </div>
+
+          {/* Standard Elite Benefits section */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mt-20 grid md:grid-cols-2 gap-8"
+          >
+            <div className="bg-surface-dark border border-white/5 rounded-3xl p-8 md:p-10">
+              <h3 className="text-xl font-black text-white mb-6 uppercase tracking-widest flex items-center gap-3">
+                <CheckCircle className="text-primary-blue" size={20} /> Standard Elite Benefits
+              </h3>
+              <p className="text-text-dimmed text-sm mb-6 italic">
+                "We see these benefits often not included in other agencies' standard packages, but at CrepTech, they are our baseline."
+              </p>
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {[
+                  '100% Source Code Ownership',
+                  'Zero Hidden Maintenance Fees',
+                  'Enterprise-Grade Security',
+                  'Cloud-Native Architecture',
+                  'SEO Ready from Day Zero',
+                  'Dedicated Project Manager'
+                ].map((benefit, bi) => (
+                  <li key={bi} className="flex items-center gap-2 text-xs text-white/70">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary-blue shadow-[0_0_10px_rgba(0,123,255,0.8)]" />
+                    {benefit}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <div className="bg-primary-blue/5 border border-primary-blue/20 rounded-3xl p-8 md:p-10 flex flex-col justify-center">
+              <h3 className="text-xl font-black text-white mb-4 uppercase tracking-widest">Global Standards</h3>
+              <p className="text-text-dimmed text-sm leading-relaxed">
+                Every project we deliver follows the <strong>SDLC Elite Protocol</strong>. From high-performance caching to mobile-first responsiveness, we don't just build websites; we engineer digital assets that drive ROI.
+              </p>
+            </div>
+          </motion.div>
 
           {/* Bottom note */}
           <p className="text-center text-text-dimmed text-sm mt-12">

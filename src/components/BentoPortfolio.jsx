@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ExternalLink, Activity, Home, Package, Users, Target, Rocket } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 const projects = [
   {
@@ -65,6 +66,11 @@ const projects = [
 export default function BentoPortfolio() {
   return (
     <section className="py-32 px-6 bg-deep-black">
+      <Helmet>
+        <title>Portfolio | CrepTech Case Studies & Selected Works</title>
+        <meta name="description" content="Explore our curated collection of high-density digital engineering projects. See how CrepTech builds high-performing patient management systems, real estate platforms, and custom CRM solutions." />
+        <link rel="canonical" href="https://creptech.online/portfolio" />
+      </Helmet>
       <div className="container mx-auto">
         <div className="flex flex-col md:flex-row justify-between items-end gap-12 mb-20">
           <motion.div 

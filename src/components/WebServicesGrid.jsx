@@ -103,29 +103,29 @@ export default function WebServicesGrid() {
 
       <div className="container mx-auto relative z-10">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-end gap-10 mb-20">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10 mb-20 overflow-hidden">
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.7, ease: "easeOut" }}
-            className="max-w-2xl"
+            className="w-full md:max-w-2xl"
           >
-            <span className="text-primary-blue font-black tracking-[0.4em] uppercase mb-4 block text-xs">
+            <span className="text-primary-blue font-black tracking-[0.4em] uppercase mb-4 block text-[10px] sm:text-xs">
               What We Build
             </span>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-none mb-6 uppercase">
+            <h2 className="text-4xl xs:text-5xl md:text-6xl font-black tracking-tighter leading-none mb-6 uppercase break-words whitespace-normal">
               Services <br />
               <span className="text-primary-blue text-glow">We Provide.</span>
             </h2>
-            <p className="text-text-dimmed text-lg sm:text-xl max-w-lg leading-relaxed">
+            <p className="text-text-dimmed text-base sm:text-xl max-w-lg leading-relaxed">
               From idea to launch — we cover every facet of web development so you can focus on
               growing your business.
             </p>
           </motion.div>
           <Link
             to="/contact"
-            className="shrink-0 flex items-center gap-2 group text-primary-blue font-black text-xs uppercase tracking-widest hover:gap-3 transition-all"
+            className="shrink-0 flex items-center gap-2 group text-primary-blue font-black text-xs uppercase tracking-widest hover:gap-3 transition-all pb-1"
           >
             Start a Project <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
           </Link>
@@ -134,7 +134,7 @@ export default function WebServicesGrid() {
         {/* Services Grid — Mobile Carousel -> Tablet/Desktop Grid */}
         <div
           ref={carouselRef}
-          className="flex sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch overflow-x-auto snap-x snap-mandatory scroll-smooth pb-8 pt-4 px-4 -mx-4 sm:mx-0 sm:px-0 sm:pb-0 sm:overflow-visible sm:snap-none"
+          className="flex sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch overflow-x-auto sm:overflow-visible snap-x snap-mandatory scroll-smooth pb-8 pt-4 px-4 -mx-4 sm:mx-0 sm:px-0 sm:pb-0 sm:snap-none"
           style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}
         >
           {webServices.map((service, i) => (
@@ -144,7 +144,7 @@ export default function WebServicesGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.5 }}
-              className={`min-w-[85vw] sm:min-w-0 shrink-0 snap-center group relative rounded-3xl border p-6 sm:p-8 cursor-default transition-all duration-300 ${service.border} bg-white/[0.02] hover:bg-white/[0.04]`}
+              className={`w-[85vw] sm:w-auto shrink-0 snap-center group relative rounded-3xl border p-6 sm:p-8 cursor-default transition-all duration-300 ${service.border} bg-white/[0.02] hover:bg-white/[0.04]`}
             >
               {/* Icon */}
               <div

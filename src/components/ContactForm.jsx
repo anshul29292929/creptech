@@ -5,7 +5,7 @@ import { Send, MapPin, Mail, CheckCircle, AlertCircle, Loader2 } from 'lucide-re
 const FORM_ENDPOINT = '/api/contact.php';
 
 const ContactForm = () => {
-  const [form, setForm] = useState({ name: '', email: '', scale: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', phone: '', scale: '', budget: '', message: '' });
   const [status, setStatus] = useState('idle'); // idle | loading | success | error
 
   const handleChange = (e) =>
@@ -19,7 +19,7 @@ const ContactForm = () => {
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
       setTimeout(() => {
         setStatus('success');
-        setForm({ name: '', email: '', scale: '', message: '' });
+        setForm({ name: '', email: '', phone: '', scale: '', budget: '', message: '' });
         console.log('Local dev environment detected: Form submission mocked successfully.');
       }, 1500);
       return;
@@ -35,7 +35,9 @@ const ContactForm = () => {
         body: JSON.stringify({
           Name: form.name,
           Email: form.email,
+          Phone: form.phone || 'Not provided',
           'Project Scale': form.scale || 'Not specified',
+          'Estimated Budget': form.budget || 'Not specified',
           Message: form.message,
           _subject: `New Project Inquiry from ${form.name} — CrepTech`,
         }),
@@ -43,7 +45,7 @@ const ContactForm = () => {
       const data = await res.json();
       if (data.success === 'true' || data.success === true) {
         setStatus('success');
-        setForm({ name: '', email: '', scale: '', message: '' });
+        setForm({ name: '', email: '', phone: '', scale: '', budget: '', message: '' });
       } else {
         console.error('Form submission failed with response:', data);
         setStatus('error');
@@ -131,7 +133,7 @@ const ContactForm = () => {
                   </motion.div>
                 ) : (
                   <form className="space-y-6" onSubmit={handleSubmit}>
-                    <div className="grid grid-cols-1 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       <input
                         type="text"
                         name="name"
@@ -150,13 +152,37 @@ const ContactForm = () => {
                         placeholder="Email Address"
                         className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-5 text-white placeholder-text-dimmed focus:outline-none focus:border-primary-blue focus:bg-white/[0.05] transition-all"
                       />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={form.phone}
+                        onChange={handleChange}
+                        placeholder="Phone Number"
+                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-5 text-white placeholder-text-dimmed focus:outline-none focus:border-primary-blue focus:bg-white/[0.05] transition-all"
+                      />
+                      <select
+                        name="budget"
+                        value={form.budget}
+                        onChange={handleChange}
+                        className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-primary-blue focus:bg-white/[0.05] transition-all appearance-none cursor-pointer"
+                      >
+                        <option value="" className="bg-surface-dark text-text-dimmed">Estimated Budget</option>
+                        <option value="Under ₹10k" className="bg-surface-dark">Under ₹10k</option>
+                        <option value="₹10k - ₹30k" className="bg-surface-dark">₹10k - ₹30k</option>
+                        <option value="₹30k - ₹100k" className="bg-surface-dark">₹30k - ₹100k</option>
+                        <option value="Above ₹100k" className="bg-surface-dark">Above ₹100k</option>
+                      </select>
+                    </div>
+                    <div className="grid grid-cols-1 gap-6">
                       <select
                         name="scale"
                         value={form.scale}
                         onChange={handleChange}
                         className="w-full bg-white/[0.03] border border-white/10 rounded-2xl px-6 py-5 text-white focus:outline-none focus:border-primary-blue focus:bg-white/[0.05] transition-all appearance-none cursor-pointer"
                       >
-                        <option value="" className="bg-surface-dark text-text-dimmed">Reason for Contact</option>
+                        <option value="" className="bg-surface-dark text-text-dimmed">Reason for Contact / Project Scale</option>
                         <option value="General Enquiry" className="bg-surface-dark">General Enquiry</option>
                         <option value="Call Back Request" className="bg-surface-dark">Call Back Request</option>
                         <option value="Business Website Development" className="bg-surface-dark">Business Website Development</option>

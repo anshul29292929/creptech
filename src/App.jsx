@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import WebServicesGrid from './components/WebServicesGrid';
@@ -45,6 +46,11 @@ const testimonials = [
 function Home() {
   return (
     <>
+      <Helmet>
+        <title>CrepTech | Elite Web Engineering & Digital Transformation</title>
+        <meta name="description" content="Engineering at the edge of possibility. CrepTech delivers elite web development, e-commerce solutions, and digital strategy at nominal prices." />
+        <link rel="canonical" href="https://creptech.online/" />
+      </Helmet>
       <Hero />
 
       <section className="bg-deep-black">
@@ -96,28 +102,30 @@ function Home() {
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <CustomCursor />
-      <main className="bg-deep-black text-white selection:bg-primary-blue selection:text-white">
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/portfolio" element={<BentoPortfolio />} />
-          <Route path="/contact" element={<ContactForm />} />
-          <Route path="/company" element={<CompanyPage />} />
-          <Route path="/project/:slug" element={<ProjectShowcase />} />
-          <Route path="/process" element={<ProcessPage />} />
-          <Route path="/pricing" element={<PricingPage />} />
-          <Route path="/careers" element={<CareersPage />} />
-          <Route path="/journal" element={<JournalPage />} />
-          <Route path="/legal" element={<LegalPage />} />
-          <Route path="/privacy-terms" element={<PrivacyTermsPage />} />
-        </Routes>
-        <Footer />
-        <ScrollToTopWidget />
-      </main>
-    </Router>
+    <HelmetProvider>
+      <Router>
+        <ScrollToTop />
+        <CustomCursor />
+        <main className="bg-deep-black text-white selection:bg-primary-blue selection:text-white">
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/portfolio" element={<BentoPortfolio />} />
+            <Route path="/contact" element={<ContactForm />} />
+            <Route path="/company" element={<CompanyPage />} />
+            <Route path="/project/:slug" element={<ProjectShowcase />} />
+            <Route path="/process" element={<ProcessPage />} />
+            <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/careers" element={<CareersPage />} />
+            <Route path="/journal" element={<JournalPage />} />
+            <Route path="/legal" element={<LegalPage />} />
+            <Route path="/privacy-terms" element={<PrivacyTermsPage />} />
+          </Routes>
+          <Footer />
+          <ScrollToTopWidget />
+        </main>
+      </Router>
+    </HelmetProvider>
   );
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import {
   Globe,
   Zap,
@@ -155,6 +156,11 @@ function FadeIn({ children, delay = 0, className = '' }) {
 export default function CompanyPage() {
   return (
     <div className="min-h-screen bg-deep-black text-white pt-16 overflow-hidden">
+      <Helmet>
+        <title>About CrepTech | Our Mission & Process</title>
+        <meta name="description" content="Discover the CrepTech story. Learn about our mission to provide elite engineering at nominal prices, our remote-first operations, and our SDLC process." />
+        <link rel="canonical" href="https://creptech.online/company" />
+      </Helmet>
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <section className="relative py-32 px-6 flex flex-col items-center justify-center text-center overflow-hidden">
