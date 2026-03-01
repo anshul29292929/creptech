@@ -8,27 +8,27 @@ const faqs = [
   {
     question: "How much does a website cost?",
     answer:
-      "Our pricing is transparent and scales with your needs. Starter websites begin at Rs.9,999, Business websites from Rs.24,999, and full E-commerce stores from Rs.49,999. Every project gets a fixed-price quote upfront - no surprises, no hidden charges. Custom enterprise projects are scoped individually; reach out and we will send a detailed estimate within 24 hours.",
+      "Our pricing is transparent and scales with your needs. Kickstart sites begin at ₹2,999, Starter websites at ₹9,999, Business at ₹24,999, and full E-commerce stores from ₹34,999. Every project gets a fixed-price quote upfront - no surprises, no hidden charges. Custom enterprise projects are scoped individually.",
   },
   {
     question: "How long does it take to build a website?",
     answer:
-      "Timelines depend on scope - a Starter site typically launches in 5-7 business days, a Business website in 2-3 weeks, and an E-commerce store in 4-6 weeks. We share a project roadmap before work begins so you always know exactly where things stand. Need it faster? Ask about our rush delivery option.",
+      "Timelines depend on scope - a Kickstart site typically launches in 3-5 business days, a Starter site in 7-10 days, and a Business/E-commerce platform in 2-4 weeks. We share a project roadmap before work begins so you always know exactly where things stand.",
   },
   {
     question: "How many revisions are included?",
     answer:
-      "All plans include unlimited revision rounds during the design phase. Once development begins, each plan includes a fixed number of change requests (3 for Starter, 7 for Business, unlimited for E-commerce). We work iteratively and transparently - most clients finalise their design in 2 rounds.",
+      "All plans include unlimited revision rounds during the design phase. Once development begins, each plan includes a fixed number of change requests. We work iteratively and transparently - most clients finalise their design in 2 rounds.",
   },
   {
-    question: "Is hosting included in the price?",
+    question: "Is hosting & domain included in the price?",
     answer:
-      "Hosting is not bundled into the one-time build cost, which keeps your pricing fair and flexible. We recommend and configure best-in-class hosting partners (e.g., Vercel, Hostinger, AWS) and guide you through setup. Typical hosting costs range from Rs.200-Rs.800/month depending on traffic and features. We can also manage hosting for you on a monthly retainer.",
+      "Yes - Hosting and Domain setup are included in our Starter, Business, and E-commerce plans. For our base 'Kickstart' plan, hosting is available as an optional add-on. We handle the technical configuration for you on all plans so you can focus on your business.",
   },
   {
     question: "Is SEO included?",
     answer:
-      "Yes - every website we build ships with on-page SEO foundations: semantic HTML structure, meta tags, Open Graph, sitemap.xml, robots.txt, page-speed optimisation, and Google Analytics integration. For ongoing SEO campaigns (keyword strategy, content calendars, link building), we offer a dedicated SEO Optimisation service starting at Rs.7,999/month.",
+      "Yes - every website we build ships with basic on-page SEO foundations: semantic HTML, meta tags, sitemap.xml, robots.txt, and page-speed optimisation. For the 'Business' and 'E-commerce' plans, we provide advanced SEO strategies and Search Console integration out of the box.",
   },
 ];
 
