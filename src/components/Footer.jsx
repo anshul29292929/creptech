@@ -58,6 +58,13 @@ const Footer = () => {
               <li>
                 <Link to="/legal" className="text-sm text-text-dimmed hover:text-primary-blue transition-colors font-medium">Legal</Link>
               </li>
+              <li className="pt-4 border-t border-white/5">
+                <h5 className="text-[8px] font-black text-white/40 uppercase tracking-[0.2em] mb-2">Network Hub</h5>
+                <div className="space-y-2">
+                  <a href="https://creptech.online/physiotherapy-in-lucknow" className="block text-[10px] text-text-dimmed hover:text-primary-blue transition-colors font-medium decoration-primary-blue/30 underline-offset-4 hover:underline">Physiotherapy in Lucknow</a>
+                  <a href="https://creptech.online/chiropractor-in-lucknow" className="block text-[10px] text-text-dimmed hover:text-primary-blue transition-colors font-medium decoration-primary-blue/30 underline-offset-4 hover:underline">Chiropractor in Lucknow</a>
+                </div>
+              </li>
             </ul>
           </div>
 
