@@ -8,6 +8,7 @@ const prerender = require('vite-plugin-prerender');
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: './',
   plugins: [
     react(),
     tailwindcss(),
