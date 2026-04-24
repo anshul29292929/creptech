@@ -9,6 +9,8 @@ import {
   Search,
   Wrench,
   ChevronRight,
+  MonitorPlay,
+  Stethoscope,
 } from 'lucide-react';
 
 const webServices = [
@@ -66,6 +68,24 @@ const webServices = [
     bg: 'bg-red-500/10',
     border: 'border-red-500/20 hover:border-red-500/50',
   },
+  {
+    icon: <MonitorPlay size={28} />,
+    title: 'Webinar Management',
+    description:
+      'End-to-end webinar platforms — registration, live streaming, recordings, attendee analytics, and post-event engagement tools.',
+    accent: 'text-teal-400',
+    bg: 'bg-teal-500/10',
+    border: 'border-teal-500/20 hover:border-teal-500/50',
+  },
+  {
+    icon: <Stethoscope size={28} />,
+    title: 'Healthcare & Academic Websites',
+    description:
+      'HIPAA-aware, trust-first websites for clinics, rehab centres, and medical academies — built for patient engagement and institutional credibility.',
+    accent: 'text-rose-400',
+    bg: 'bg-rose-500/10',
+    border: 'border-rose-500/20 hover:border-rose-500/50',
+  },
 ];
 
 export default function WebServicesGrid() {
@@ -97,7 +117,7 @@ export default function WebServicesGrid() {
   }, []);
 
   return (
-    <section id="services" className="py-32 px-6 bg-deep-black relative overflow-hidden">
+    <section id="services" className="py-16 px-6 bg-deep-black relative overflow-hidden">
       {/* Decorative glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary-blue/4 rounded-full blur-[180px] pointer-events-none" />
 

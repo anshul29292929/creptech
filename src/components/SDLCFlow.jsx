@@ -76,13 +76,13 @@ const stages = [
 
 export default function SDLCFlow() {
   return (
-    <section className="py-40 bg-deep-black overflow-hidden relative">
+    <section className="pt-16 pb-8 bg-deep-black overflow-hidden relative">
       {/* Dynamic Background Grid */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,123,255,0.05),transparent_70%)] opacity-50" />
       <div className="absolute inset-0 bg-grid-white/[0.02]" />
 
       <div className="container mx-auto px-6 relative z-10">
-        <div className="text-center mb-32">
+        <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -185,7 +185,7 @@ export default function SDLCFlow() {
         </div>
 
         {/* Global Control Bar */}
-        <div className="mt-32 flex justify-center">
+        <div className="mt-12 flex justify-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

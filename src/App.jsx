@@ -22,36 +22,11 @@ import PrivacyTermsPage from './components/PrivacyTermsPage';
 import ScrollToTop from './components/SmoothScroll';
 import CustomCursor from './components/CustomCursor';
 import ScrollToTopWidget from './components/ScrollToTopWidget';
-import { InfiniteMovingCards } from './components/ui/infinite-moving-cards';
-import { LampContainer } from './components/ui/lamp';
 
-const testimonials = [
-  {
-    quote: "CrepTech transformed our legacy system into a high-performance SaaS. Their engineering depth is unmatched.",
-    name: "Sarah Chen",
-    title: "CTO at NexusFlow"
-  },
-  {
-    quote: "The value we got for the price was incredible. Elite results at nominal charges is not just a slogan.",
-    name: "Marcus Thorne",
-    title: "Founder of EcoSphere"
-  },
-  {
-    quote: "Clean code, distributed systems expertise, and rapid delivery. Exactly what our series A startup needed.",
-    name: "Elena Rodriguez",
-    title: "VPE at QuantumLink"
-  },
-  {
-    quote: "Their team doesn't just build features; they architect solutions that scale. A rare find in the agency world.",
-    name: "David Park",
-    title: "Director of Product, Finvance"
-  },
-  {
-    quote: "The transition to a custom ERP was seamless. CrepTech's attention to detail and performance saved us thousands.",
-    name: "Julianne Smith",
-    title: "CEO, LogiTrack Systems"
-  }
-];
+import { LampContainer } from './components/ui/lamp';
+import ClientsSection from './components/ClientsSection';
+
+
 
 function Home() {
   return (
@@ -89,21 +64,9 @@ function Home() {
         </LampContainer>
       </section>
 
-      <div className="relative z-20 py-20 -mt-32 md:-mt-48 overflow-hidden">
-        <div className="container mx-auto px-6 mb-12">
-            <motion.div 
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                className="flex flex-col items-center gap-4"
-            >
-                <div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-primary-blue to-transparent" />
-                <span className="text-[10px] font-black uppercase tracking-[0.4em] text-primary-blue/60">Trusted by Global Engineering Teams</span>
-            </motion.div>
-        </div>
-
-        {/* Subtle background glow for the testimonials */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-6xl h-[300px] bg-primary-blue/5 rounded-full blur-[150px] pointer-events-none" />
-        <InfiniteMovingCards items={testimonials} direction="right" speed="slow" />
+      {/* Clients Section — pulled up to close the LampContainer gap */}
+      <div className="-mt-[28rem] md:-mt-[38rem] relative z-20">
+        <ClientsSection />
       </div>
 
       {/* Web services we provide */}
